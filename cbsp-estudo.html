@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CBSP — Revisão e Prova Comentada</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --deep:#0B2430;
+  --steel:#3E5C6B;
+  --ice:#EDF1F2;
+  --paper:#FAFBFB;
+  --orange:#E4571B;
+  --amber:#F2B233;
+  --green:#1F7A5A;
+  --green-bg:#E4F2EC;
+  --line:#C9D4D8;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:var(--ice);color:var(--deep);
+  font-family:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-size:15.5px;line-height:1.5;padding-bottom:60px;
+  -webkit-text-size-adjust:100%;
+}
+.wrap{max-width:760px;margin:0 auto;padding:0 16px}
+
+header{
+  background:var(--deep);color:var(--paper);
+  padding:24px 0 20px;border-bottom:6px solid var(--orange);
+}
+.eyebrow{
+  font-family:"Barlow Condensed",sans-serif;font-weight:600;
+  letter-spacing:.18em;text-transform:uppercase;font-size:12px;color:var(--amber);
+}
+h1{
+  font-family:"Barlow Condensed",sans-serif;font-weight:700;
+  font-size:36px;line-height:1;text-transform:uppercase;margin:4px 0 6px;
+}
+header p{font-size:13.5px;color:#A9BFC8;max-width:54ch}
+
+nav{
+  position:sticky;top:0;z-index:10;
+  background:var(--deep);
+  border-bottom:1px solid #1B3B49;
+}
+nav .wrap{display:flex;gap:0}
+.tab{
+  flex:1;appearance:none;background:none;border:none;cursor:pointer;
+  font-family:"Barlow Condensed",sans-serif;font-weight:600;
+  text-transform:uppercase;letter-spacing:.08em;font-size:16px;
+  color:#7E9BA8;padding:13px 6px 11px;
+  border-bottom:3px solid transparent;
+}
+.tab[aria-selected="true"]{color:var(--paper);border-bottom-color:var(--orange)}
+.tab:focus-visible{outline:2px solid var(--amber);outline-offset:-3px}
+
+main{padding-top:20px}
+.panel[hidden]{display:none}
+
+section{
+  background:var(--paper);border:1px solid var(--line);
+  border-left:5px solid var(--steel);border-radius:3px;
+  padding:16px 16px 14px;margin-bottom:14px;
+}
+section.hot{border-left-color:var(--orange)}
+h2{
+  font-family:"Barlow Condensed",sans-serif;font-weight:700;
+  text-transform:uppercase;letter-spacing:.06em;font-size:21px;line-height:1.1;
+  margin-bottom:10px;display:flex;align-items:baseline;gap:9px;
+}
+h2 .num{
+  font-size:12px;color:var(--orange);letter-spacing:.12em;
+  border:1px solid var(--orange);border-radius:2px;padding:1px 5px;flex:none;
+}
+ul{list-style:none}
+.facts li{padding:6px 0 6px 15px;border-top:1px solid var(--line);position:relative}
+.facts li:first-child{border-top:none}
+.facts li::before{content:"";position:absolute;left:0;top:14px;width:6px;height:2px;background:var(--steel)}
+b{font-weight:600;color:#000}
+.key{background:linear-gradient(transparent 58%, var(--amber) 58%);font-weight:600}
+.trap{
+  margin-top:10px;padding:9px 11px;background:#FDF1E9;
+  border:1px dashed var(--orange);border-radius:3px;font-size:14px;
+}
+.trap strong{
+  font-family:"Barlow Condensed",sans-serif;text-transform:uppercase;
+  letter-spacing:.08em;color:var(--orange);font-size:13px;display:block;
+}
+
+.gab{background:var(--deep);border-left-color:var(--amber);color:var(--paper)}
+.gab h2{color:var(--paper)}
+.gab h2 .num{color:var(--amber);border-color:var(--amber)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(70px,1fr));gap:5px;margin-top:4px}
+.g{background:#14303D;border-radius:3px;padding:5px 4px;text-align:center;font-family:"Barlow Condensed",sans-serif}
+.g i{display:block;font-style:normal;font-size:11px;color:#7E9BA8;letter-spacing:.06em}
+.g b{color:var(--amber);font-size:19px;font-weight:700}
+
+/* prova comentada */
+.toolbar{
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+  margin-bottom:14px;font-size:13.5px;color:var(--steel);
+}
+.toolbar button{
+  appearance:none;cursor:pointer;background:var(--paper);
+  border:1px solid var(--steel);color:var(--deep);border-radius:3px;
+  font-family:"Barlow Condensed",sans-serif;font-weight:600;font-size:14px;
+  letter-spacing:.06em;text-transform:uppercase;padding:7px 12px;
+}
+.toolbar button:hover{background:var(--deep);color:var(--paper)}
+
+.q{
+  background:var(--paper);border:1px solid var(--line);
+  border-radius:3px;padding:14px 15px;margin-bottom:12px;
+}
+.q-head{display:flex;gap:10px;align-items:baseline;margin-bottom:9px}
+.q-num{
+  font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:15px;
+  color:var(--paper);background:var(--steel);border-radius:2px;
+  padding:2px 7px;flex:none;letter-spacing:.04em;
+}
+.q-text{font-size:15px}
+.alts{margin:0 0 10px}
+.alts li{
+  display:flex;gap:9px;padding:6px 8px;border-radius:3px;
+  font-size:14.5px;color:#3A4A52;
+}
+.alts .letter{
+  font-family:"Barlow Condensed",sans-serif;font-weight:700;
+  flex:none;width:16px;text-align:center;color:var(--steel);
+}
+.alts li.right{background:var(--green-bg);color:#123F30;font-weight:500}
+.alts li.right .letter{color:var(--green)}
+.alts li.right::after{content:"✓";margin-left:auto;color:var(--green);font-weight:700}
+.why{
+  border-top:1px solid var(--line);padding-top:9px;font-size:14px;color:#324450;
+}
+.why strong{
+  font-family:"Barlow Condensed",sans-serif;text-transform:uppercase;
+  letter-spacing:.08em;font-size:12.5px;color:var(--orange);
+  display:block;margin-bottom:2px;
+}
+.q.flag{border-left:4px solid var(--amber)}
+.q.flag .why strong{color:#B07A00}
+footer{text-align:center;font-size:12.5px;color:var(--steel);margin-top:18px}
+@media (max-width:520px){h1{font-size:29px}body{font-size:15px}}
+@media (prefers-reduced-motion:no-preference){.panel{animation:fade .18s ease-out}@keyframes fade{from{opacity:0}to{opacity:1}}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="eyebrow">Grupo Lighthouse</div>
+    <h1>CBSP — Material de estudo</h1>
+    <p>Curso Básico de Segurança de Plataforma. Duas frentes: os conceitos condensados e a prova inteira resolvida com explicação.</p>
+  </div>
+</header>
+
+<nav>
+  <div class="wrap" role="tablist">
+    <button class="tab" role="tab" id="tab-flash" aria-controls="p-flash" aria-selected="true">Revisão relâmpago</button>
+    <button class="tab" role="tab" id="tab-exam" aria-controls="p-exam" aria-selected="false">Prova comentada</button>
+  </div>
+</nav>
+
+<main class="wrap">
+
+<!-- ============ ABA 1 ============ -->
+<div class="panel" id="p-flash" role="tabpanel" aria-labelledby="tab-flash">
+
+<section class="hot">
+  <h2><span class="num">01</span> Fogo: como o calor anda</h2>
+  <ul class="facts">
+    <li><b>Condução</b> — contato direto, molécula a molécula. Ex.: <span class="key">barra de ferro no fogo</span>.</li>
+    <li><b>Convecção</b> — movimento das massas de ar: quente sobe, frio desce.</li>
+    <li><b>Irradiação</b> — raios caloríficos <span class="key">atravessam o ar</span>, sem contato.</li>
+    <li><b>Reação química em cadeia</b> — o calor decompõe o combustível em gases, que queimam e realimentam a chama: processo <span class="key">autossustentado</span>.</li>
+  </ul>
+  <div class="trap"><strong>Não confunda</strong>"Contato" = condução · "atravessa o ar / raios" = irradiação · "camadas de ar sobem e descem" = convecção.</div>
+</section>
+
+<section>
+  <h2><span class="num">02</span> Combustão e classes de incêndio</h2>
+  <ul class="facts">
+    <li><b>Combustão</b> = reação <span class="key">química (oxidação) de alta velocidade</span> que produz <b>luz, calor e gases</b>.</li>
+    <li><b>Triângulo do fogo</b>: combustível + comburente + calor. Com a reação em cadeia vira tetraedro.</li>
+    <li><b>Classes de incêndio</b>: <span class="key">A, B, C, D e K</span> — nunca números nem algarismos romanos.</li>
+    <li><b>Agentes extintores</b> = as substâncias que extinguem, por resfriamento, abafamento ou quebra da reação em cadeia.</li>
+    <li><b>Extintores portáteis</b> = os aparelhos, em local visível e de fácil acesso.</li>
+  </ul>
+</section>
+
+<section>
+  <h2><span class="num">03</span> Combate a incêndio a bordo</h2>
+  <ul class="facts">
+    <li><b>Sistemas fixos</b>: combate imediato no princípio do incêndio e <span class="key">evitam o contato físico da pessoa com o fogo</span>.</li>
+    <li>Combater cabe a quem <span class="key">identifica E comunica a sala de controle</span>. Identificar sozinho não basta.</li>
+    <li><b>Brigada</b>: só profissional com treinamento <span class="key">específico de combate a incêndio avançado</span>.</li>
+    <li><b>Detector de fumaça</b> é o mais usado em camarotes.</li>
+    <li>Evento de difícil controle que leva ao abandono: <span class="key">erupção de poço (blow-out)</span>.</li>
+  </ul>
+</section>
+
+<section>
+  <h2><span class="num">04</span> Salvatagem e abandono</h2>
+  <ul class="facts">
+    <li><b>Boia salva-vidas</b> — fibra reforçada, medidas normatizadas: recurso <span class="key">primário de auxílio ao homem ao mar</span>.</li>
+    <li><b>Baleeira + balsa inflável</b> — sistema primário de evacuação e sobrevivência.</li>
+    <li><b>Coletes</b>: 5 classes; offshore usa-se <span class="key">I e IV</span>.</li>
+    <li><b>EPIRB</b> — sinal codificado via satélite, indica a posição dos náufragos. <b>SART</b> responde ao radar.</li>
+    <li><b>Foguete paraquedas com estrela vermelha</b> — <span class="key">longa distância, à noite</span>. Fumígeno = dia; espelho heliográfico = sol.</li>
+    <li>Águas frias: <b>HELP</b> = individual, encolhido; <span class="key"><b>Huddle</b> = coletivo</span>, círculo de sobrevivência.</li>
+    <li>Baleeira: queda livre ≥ 3 m, dois sistemas de acionamento, auto-aprumante.</li>
+  </ul>
+</section>
+
+<section>
+  <h2><span class="num">05</span> Proteção (ISPS) e ameaças</h2>
+  <ul class="facts">
+    <li><b>Ameaças à proteção</b>: <span class="key">pirataria, assaltos armados e terrorismo</span>. Vazamento de óleo, acidente de trabalho e homem ao mar são <b>segurança</b>, não proteção.</li>
+    <li><b>Níveis 1, 2 e 3</b> — o mais elevado é o <span class="key">nível 3</span>. Nível = grau de vigilância definido pelo governo conforme a ameaça atual.</li>
+    <li>Ação feita em <b>todos</b> os níveis, mudando só o rigor: <span class="key">controle dos pontos de acesso</span>.</li>
+    <li><b>CESPORTOS</b> — Comissão <b>E</b>stadual. CONPORTOS é a nacional.</li>
+    <li>Depois do gerente da instalação, quem responde pelo Plano de Proteção é o <span class="key">Oficial de Proteção</span>.</li>
+  </ul>
+</section>
+
+<section>
+  <h2><span class="num">06</span> Convivência, CIPA e comunicação</h2>
+  <ul class="facts">
+    <li><b>CIPA</b> — verifica condições de trabalho, elabora o Mapa de Riscos, leva discussões ao empregador. <span class="key">Não</span> discute assuntos alheios à política de SMS.</li>
+    <li><b>EPI</b> protege a pessoa. EPC = coletivo. PET = permissão de entrada e trabalho.</li>
+    <li><b>Atos e condições inseguras</b> decorrem de <span class="key">imperícia</span>, imprudência e negligência.</li>
+    <li><b>Comunicação</b>: emissor, receptor, <span class="key">mensagem</span>, canal e contexto. "Interlocutor" e "frequência" denunciam alternativa errada.</li>
+    <li><b>Liderança</b>: respeitar o colaborador como gostaria de ser tratado. Elogiar <i>sempre</i> e atribuir os sucessos <i>a si mesmo</i> são erradas — por isso "Todos" também cai.</li>
+    <li>O que <span class="key">prejudica</span> o relacionamento: <b>brincar no ambiente de trabalho</b>.</li>
+    <li><b>Gases</b>: CO₂ asfixiante · NH₃ tóxico (H₂S também é tóxico — leia o par inteiro).</li>
+  </ul>
+</section>
+
+<section class="hot">
+  <h2><span class="num">07</span> Primeiros socorros</h2>
+  <ul class="facts">
+    <li><b>Fraturas</b>: <span class="key">aberta ou fechada</span>. "Primeiro ou segundo grau" é de queimadura.</li>
+    <li><b>Hemorragia em jato</b>, vermelho vivo e pulsátil = <span class="key">arterial</span>. Venosa escorre escura e contínua; capilar aflora na pele.</li>
+    <li><b>XABCDE</b>: X hemorragia exsanguinante · A vias aéreas · B ventilação · C circulação · D neurológico · <span class="key">E = expor buscando lesões ocultas</span>.</li>
+    <li>Depois de crise epiléptica: <span class="key">PLS — Posição Lateral de Segurança</span>.</li>
+    <li><b>RCP</b>: <span class="key">100 a 120 compressões por minuto</span>, ciclos de <b>30:2</b>, ~5 cm de profundidade.</li>
+  </ul>
+  <div class="trap"><strong>Atenção ao enunciado</strong>"Frequência" = 100–120 por minuto. "Ciclo/relação" = 30:2. As duas aparecem juntas nas alternativas.</div>
+</section>
+
+<section class="gab">
+  <h2><span class="num">✓</span> Gabarito 1–40</h2>
+  <div class="grid" id="gabarito"></div>
+</section>
+
+</div>
+
+<!-- ============ ABA 2 ============ -->
+<div class="panel" id="p-exam" role="tabpanel" aria-labelledby="tab-exam" hidden>
+  <div class="toolbar">
+    <button id="toggle-answers">Ocultar respostas</button>
+    <span>Esconda as respostas para responder de cabeça e depois confira.</span>
+  </div>
+  <div id="questions"></div>
+</div>
+
+</main>
+
+<footer class="wrap">Se a prova mudar a ordem das alternativas, vale o conceito — não a letra.</footer>
+
+<script>
+const Q = [
+{n:1,t:"A energia, dentre elas o calor, transmite-se por três processos. Em qual processo ocorre a transmissão pelo contato direto de molécula para molécula, como ocorre, por exemplo, com uma barra de ferro levada ao fogo?",
+ a:["Condução","Convecção","Projeção","Irradiação"],r:0,
+ c:"Condução exige contato físico: o calor caminha pela própria matéria, de molécula em molécula. É o caso do metal, que é bom condutor. A palavra-chave no enunciado é <b>contato direto</b>."},
+{n:2,t:"A energia, dentre elas o calor, transmite-se por três processos. Em qual processo ocorre a transmissão do calor por meio de raios caloríficos que atravessam o ar, irradiados pela fonte de energia?",
+ a:["Condução","Convecção","Projeção","Irradiação"],r:3,
+ c:"Irradiação é calor viajando em ondas, sem precisar de meio nem de contato — como o sol aquecendo você. Palavra-chave: <b>raios caloríficos</b>."},
+{n:3,t:"Transmissão do calor pelo movimento das ondas caloríficas na atmosfera. Como o ar quente é mais leve do que o frio, as camadas aquecidas tendem a subir, afastando-se da fonte de calor, enquanto as frias tendem a descer, aproximando-se da fonte de calor?",
+ a:["Condução","Convecção","Projeção","Irradiação"],r:1,
+ c:"Convecção é o calor circulando junto com o ar (ou líquido) que se move. Por isso a fumaça sobe e o incêndio se espalha para os conveses superiores. Palavra-chave: <b>camadas que sobem e descem</b>."},
+{n:4,t:"\"O calor irradiado da chama atinge o combustível, o qual se decompõe em partículas menores (gases), que se combina com o oxigênio e entram em combustão, irradiando outra vez calor para o combustível, realimentando a chama e formando assim um processo autossustentado\". De qual fenômeno esta afirmação se refere?",
+ a:["Reação de processo de queima","Reação fracionária do fogo","Reação química em cadeia","Reação de autoignição"],r:2,
+ c:"É o quarto elemento do fogo — o que transforma o triângulo em tetraedro. O fogo se alimenta do próprio calor. Palavra-chave: <b>autossustentado / realimenta</b>."},
+{n:5,t:"Os extintores portáteis são marcados com símbolos e letras, conforme a classe de incêndio contra a qual devem ser utilizados. Assim, as seguintes marcas são utilizadas:",
+ a:["A, B, C, D e K","I, II, III, IV e V","1, 2, 3, 4 e 5","A, AB, BC, ABC, AC e K"],r:0,
+ c:"São cinco classes por letra: A sólidos, B líquidos inflamáveis, C equipamentos energizados, D metais pirofóricos, K óleo e gordura de cozinha. As combinações da letra D existem como rótulo de extintor multiuso, mas a pergunta é sobre as <b>classes</b>."},
+{n:6,t:"A partir da manipulação do fogo o homem conseguiu tirar proveito deste conhecimento para benefício próprio, extraindo a energia dos materiais da natureza ou moldando a natureza em seu benefício. Um dos itens importantes de se saber sobre o fogo para conseguir manipulá-lo é a definição de combustão, que consiste em:",
+ a:["É uma reação química (oxidação) de alta velocidade, que produz luz, calor e gases","É uma reação química (oxidação) lenta, que produz luz, calor e gases","É uma reação química (oxidação) de alta velocidade, que produz apenas luz","É uma reação física (oxidação) de alta velocidade, que produz luz, calor e gases"],r:0,
+ c:"Três filtros para eliminar as erradas: é <b>química</b> (não física), é <b>rápida</b> (a lenta é a ferrugem) e produz <b>luz, calor e gases</b> (não apenas luz)."},
+{n:7,t:"Como se denominam as substâncias empregadas para extinguir a combustão, por meio de resfriamento ou abafamento ou quebra da reação química em cadeia?",
+ a:["Extintores portáteis Universais","Sistemas fixos de alarme de incêndios","Agentes extintores","Equipamentos de proteção individual"],r:2,
+ c:"Agente extintor é a <b>substância</b> (água, pó químico, CO₂, espuma, halogenado). O extintor é o recipiente que a carrega — não confunda a substância com o aparelho."},
+{n:8,t:"São aparelhos portáteis que servem para extinguir princípios de incêndio, devendo estar acondicionados em locais visíveis e de fácil acesso:",
+ a:["Chuveiros automáticos, mais conhecidos por \"sprinklers\"","Esguichos variáveis","Agentes extintores","Extintores portáteis"],r:3,
+ c:"O par espelhado da questão anterior: aqui pede o <b>aparelho</b>. Sprinkler é sistema fixo, então já cai por não ser portátil."},
+{n:9,t:"Para a existência do fogo, há necessidade da presença de três elementos básicos. Quais são?",
+ a:["Combustível, madeira e temperatura","Oxigênio, comburente e calor","Combustível, ponto de fulgor e ponto de combustão","Combustível, comburente e calor"],r:3,
+ c:"O triângulo do fogo. Cuidado com a alternativa B: oxigênio <b>é</b> o comburente, então ela repete o mesmo elemento duas vezes e deixa o combustível de fora."},
+{n:10,t:"Dentre os muitos recursos de identificação dos princípios de incêndios em unidades marítimas, o mais empregado nos compartimentos de repouso (camarotes) é:",
+ a:["Detector de gás","Detector de fumaça","Detector de fogo","Rede de CO2"],r:1,
+ c:"Fumaça aparece antes da chama, o que dá tempo de acordar e evacuar — por isso é o detector padrão em área de repouso. Detector de chama vai em áreas de processo; rede de CO₂ é combate, não detecção."},
+{n:11,t:"Dentre muitas vantagens os equipamentos fixos de combate apresentam:",
+ a:["Combate imediato no início do princípio de incêndio / Evitar o contato físico de pessoas com o fogo","Estão em todos os lugares na unidade","Todos empregam a água como agente extintor","Não oferecem risco aos trabalhadores"],r:0,
+ c:"As outras três são absolutas demais e por isso falsas: não cobrem todos os lugares, nem todos usam água (há CO₂, espuma, pó) e sistemas fixos <b>oferecem risco</b> — CO₂ em espaço fechado é asfixiante."},
+{n:12,t:"O combate a princípio de incêndio abordo está condicionado a:",
+ a:["Àqueles que estão passando no local onde há risco de incêndio","Àqueles que identificam o princípio de incêndio.","Àqueles que identificam o princípio de incêndio e comunica a sala de controle","Ao chefe do setor que inicia um princípio de incêndio"],r:2,
+ c:"A alternativa B é a armadilha clássica: está certa pela metade. A bordo, nada se combate sem antes <b>dar o alarme</b> — a sala de controle aciona brigada, para ventilação e prepara evacuação."},
+{n:13,t:"Quais profissionais de bordo podem compor regularmente a brigada de incêndio de bordo de uma plataforma?",
+ a:["Qualquer pessoa que estiver próxima de um incêndio","Um profissional que passou por um treinamento específico de combate a incêndio avançado","Somente pessoas com treinamento de bombeiro civil","Um profissional que possua o treinamento de curso básico de segurança em plataformas"],r:1,
+ c:"O curso básico (o que você está fazendo) habilita a se proteger e a agir num princípio de incêndio, mas <b>não</b> a integrar a brigada. Para isso é preciso o combate a incêndio <b>avançado</b>."},
+{n:14,t:"Pela dificuldade em se controlar, poderá ocasionar o abandono ou a evacuação de um navio ou de uma plataforma:",
+ a:["Homem ao mar","Princípio de incêndio","Acidente envolvendo mergulhadores","Erupção de poço (Blow-out)"],r:3,
+ c:"Blow-out é a saída descontrolada de óleo e gás do poço: escapa do alcance da tripulação e pode incendiar a unidade inteira. As outras três são emergências localizadas, com resposta própria, sem abandono."},
+{n:15,t:"Manter um bom relacionamento em ambientes confinados é muito importante. São dicas para manter um bom relacionamento abordo:",
+ a:["Evitar discutir sobre religião e sexualidade dos outros","Respeitar a privacidade e não o espaço das pessoas","Procurar andar sempre bem uniformizado. O asseio pessoal será conforme a função de bordo","Ter relativa calma para poder controlar os imprevistos dependendo da função de bordo"],r:0,
+ c:"Repare que B, C e D são boas dicas <b>estragadas por um detalhe</b>: \"e não o espaço\", \"conforme a função de bordo\", \"dependendo da função de bordo\". Asseio e calma valem para todos, sem depender do cargo. Nessa prova, leia a alternativa até o fim."},
+{n:16,t:"Liderança pode ser conceituada como a arte de conduzir ao sucesso, tendo em vista que o foco do líder deve ser conduzir seu grupo à consecução de seus objetivos e preparar seus colaboradores para que se tornem futuros líderes. São consideradas boas práticas de líderes:",
+ a:["Respeitar os colaboradores, tratando-os da mesma forma como gostaria de ser tratado por eles","Elogiar os colaboradores sempre","Comemorar todos os triunfos e sucessos obtidos pela sua equipe sempre atribuindo a si mesmo","Todos"],r:0,
+ c:"C é o oposto de liderança: tomar para si o mérito da equipe. Como C é falsa, \"Todos\" cai junto. B também não se sustenta — elogiar <b>sempre</b>, inclusive sem mérito, esvazia o reconhecimento."},
+{n:17,t:"Equipamentos usados para proteger a integridade física de uma pessoa:",
+ a:["EPC – Equipamentos de Proteção Coletiva","EPI – Equipamentos de Proteção Individual","PET – Permissão para entrada e trabalho","EIP – Equipamento individual de plataformas"],r:1,
+ c:"O critério é <b>uma pessoa</b>: capacete, luva, óculos, cinto. EPC protege o grupo (guarda-corpo, rede, sinalização) e PET é um documento, não equipamento. \"EIP\" não existe."},
+{n:18,t:"A comunicação, para que possa fluir, precisa de elementos específicos, tais como um meio ou um canal de transmissão, referente a um contexto, a uma situação. Os elementos básicos de comunicação são:",
+ a:["Emissor, receptor, interlocutor, canal de comunicação e contexto","Emissor, receptor, mensagem, canal de comunicação e contexto","Emissor, receptor, mensagem, frequência, canal de comunicação e contexto","Emissor, receptor, interlocutor, mensagem, frequência e contexto"],r:1,
+ c:"São cinco: quem fala, quem recebe, o que é dito, por onde passa e em que situação. Se a alternativa trouxer <b>interlocutor</b> ou <b>frequência</b>, está errada — frequência é característica do rádio, não elemento da comunicação."},
+{n:19,t:"Dentre as opções abaixo, prejudica a manutenção do bom relacionamento entre as pessoas:",
+ a:["Evitar discussões de religião e sexualidade","Brincar no ambiente de trabalho","Não utilizar drogas ou bebidas alcoólicas","Ter calma para controlar imprevistos"],r:1,
+ c:"Enunciado invertido: pede o que <b>atrapalha</b>. As outras três são boas práticas. Brincadeira em área operacional distrai, constrange e é causa reconhecida de acidente."},
+{n:20,t:"Atos Inseguros e Condições Inseguras são os atos ou as ações que o trabalhador executa, de forma voluntária ou não, e que podem provocar ou contribuir para a ocorrência de um acidente. Podem ser normalmente decorrentes de:",
+ a:["Boas horas de sono","Resultado da política contra a utilização de álcool de drogas","Imperícia","Boa comunicação"],r:2,
+ c:"Imperícia é falta de técnica ou de treino para a tarefa. O trio que gera ato inseguro: <b>imperícia, imprudência e negligência</b>. As outras três alternativas descrevem coisas que <b>previnem</b> acidentes."},
+{n:21,t:"Dentre as atividades abaixo, qual não representa uma atribuição da CIPA?",
+ a:["Verificar periodicamente as condições de trabalho","Discutir aspectos alheios à Política de Segurança e Saúde da empresa","Elaborar o Mapa de Riscos","Participar das discussões promovidas pelo empregador dos assuntos relativos aos perigos e riscos"],r:1,
+ c:"Enunciado negativo. A própria alternativa se entrega com a palavra <b>alheios</b>: a CIPA só trata de segurança e saúde do trabalho. Inspecionar, mapear riscos e participar das discussões são atribuições legítimas."},
+{n:22,t:"Dentre os gases abaixo relacionados, são perigosos à saúde por ser asfixiante e outro tóxico:",
+ a:["CO2 e NH3","CO2 e H2S","CO e S","NRA – Nenhuma das respostas anteriores"],r:0,flag:true,
+ c:"A lógica é: um gás que <b>ocupa o lugar do oxigênio</b> (CO₂, asfixiante simples) e um que <b>envenena</b> (NH₃, amônia). Atenção: CO₂ + H₂S segue exatamente a mesma lógica e o H₂S é o tóxico mais citado offshore. Leia o par com calma e, na dúvida, veja qual combinação o instrutor enfatizou em aula."},
+{n:23,t:"Confeccionada em material de fibra reforçada, com diâmetros, massa e flutuabilidade estabelecidos em código internacional e em normas nacionais, é o recurso primário de auxílio ao homem ao mar:",
+ a:["Âncora flutuante","Boia salva-vidas","Baleeira","Aro de resgate"],r:1,
+ c:"Homem ao mar → a primeira coisa lançada é a boia (com retinida ou luz e fumígeno). Baleeira é abandono, não resgate individual; âncora flutuante estabiliza a balsa."},
+{n:24,t:"Que posição coletiva os náufragos devem adotar, quando imerso em águas frias, para evitar a perda de calor do corpo?",
+ a:["Posição Help","Posição Huddle, conhecida como círculo de sobrevivência","Natação individual","Natação coletiva"],r:1,
+ c:"A palavra do enunciado é <b>coletiva</b>: Huddle é o grupo abraçado em círculo, dividindo calor. HELP é a versão individual (encolhido, joelhos ao peito). Nadar acelera a hipotermia."},
+{n:25,t:"São sistema primário de evacuação sobrevivência existentes a bordo dos navios ou plataformas:",
+ a:["Baleeira e Balsa inflável","Baleeira e boia salva-vidas","Bote de resgate e colete salva-vidas","Baleeira e colete salva-vidas"],r:0,
+ c:"Primário = o que <b>tira você da unidade e te mantém vivo</b>: baleeira e balsa. Colete e boia são equipamentos individuais de flutuação, e o bote de resgate serve para recolher náufragos, não para evacuar a unidade."},
+{n:26,t:"É um equipamento eletrônico usado nos casos de abandono que envia um sinal codificado para sistemas satélites cuja função é indicar a localização dos náufragos:",
+ a:["SART","Transponder Radar","Espelho heliográfico","EPIRB"],r:3,
+ c:"A palavra decisiva é <b>satélite</b>: só o EPIRB fala com o sistema Cospas-Sarsat. SART e transponder radar respondem ao radar de quem está buscando, e o espelho heliográfico é visual, só funciona com sol."},
+{n:27,t:"Os coletes salva-vidas são divididos em cinco classes. Quais são as classes de coletes salva-vidas que podemos encontrar a bordo das unidades offshore?",
+ a:["A e B","II e III","I e IV","C e K"],r:2,
+ c:"Classe I é o colete de abandono (grande, com luz, apito e refletivo); classe IV é o de trabalho, mais leve, usado em atividade sobre a água. As alternativas com letras já saem: colete se classifica por número romano."},
+{n:28,t:"Artefato pirotécnico que deve ser utilizado pelos náufragos quando avistada uma embarcação a longa distância, à noite:",
+ a:["Espelho heliográfico","Fumígeno 15 minutos","Foguete paraquedas com estrela vermelha","Bartedouro"],r:2,
+ c:"Três filtros: <b>pirotécnico</b> (elimina o espelho), <b>noite</b> (elimina o fumígeno, que é diurno) e <b>longa distância</b> (o foguete sobe a ~300 m e queima cerca de 40 s). Bartedouro é a concha de tirar água da balsa."},
+{n:29,t:"Não é característica do recurso primário de abandono:",
+ a:["Suportar uma queda livre de pelo menos 3m","Ter dois sistemas de acionamento (ignição)","Ser auto aprumante","Ser capaz de ser lançada embarcada"],r:3,flag:true,
+ c:"Questão de enunciado negativo e mal formulada — as quatro descrevem a baleeira. O gabarito adotado foi D. Se cair de novo, releia se o enunciado fala de <b>baleeira</b> ou de <b>balsa inflável</b>: a balsa é lançada vazia e só depois embarcada, e não é auto-aprumante nem tem ignição."},
+{n:30,t:"São estabelecidos pelas autoridades de um governo contratante estabelecendo o grau de vigilância que deverá ser observado em função da ameaça atual:",
+ a:["Plano Controle","Padrão de Proteção","Nível de Vigilância","Nível de Proteção"],r:3,
+ c:"Terminologia do ISPS Code: quem define é o <b>governo</b>, e o nome oficial é Nível de Proteção (1 normal, 2 reforçado, 3 excepcional). \"Nível de Vigilância\" é a pegadinha que soa parecida mas não existe no código."},
+{n:31,t:"Depois do gerente da instalação offshore, tem responsabilidade direta no Plano de Proteção e pleno conhecimento deste:",
+ a:["Auditor de Proteção do Navio","Segurança Patronal do Navio","Oficial de Proteção do Navio","Técnico de Segurança do Navio"],r:2,
+ c:"O Oficial de Proteção é o cargo criado pelo ISPS para implementar, manter e revisar o plano. Auditor só verifica de fora; o Técnico de Segurança cuida de segurança do trabalho (SMS), que é assunto diferente de proteção."},
+{n:32,t:"São ameaças à proteção de uma unidade offshore ou embarcação:",
+ a:["Pirataria, vazamento de óleo (desproporcionado) e terrorismo","Acidente de trabalho, assaltos armados e terrorismo","Pirataria, assaltos armados e terrorismo","Pirataria, assaltos armados e homem ao mar"],r:2,
+ c:"Divida em dois mundos: <b>proteção (security)</b> = ato humano intencional contra a unidade; <b>segurança (safety)</b> = acidente. Vazamento, acidente de trabalho e homem ao mar são safety — por isso A, B e D caem."},
+{n:33,t:"Para todos os níveis de proteção existem padrões de vigilância a serem mantidos e alterados conforme o estabelecido no plano de proteção do navio. Qual das opções abaixo apresenta uma das ações que será realizada em todos os níveis de proteção com cuidados diferentes?",
+ a:["Controle dos pontos de acesso ao navio","Seguranças armados nos locais mais vulneráveis","Uso de concertina em locais de possível acesso","Cancelamento de todas as provisões"],r:0,
+ c:"Controlar acesso acontece <b>sempre</b> — muda só o rigor: identificação no nível 1, revista e escolta no 2, acesso restrito ou suspenso no 3. As outras três são medidas extraordinárias, acionadas só em nível elevado."},
+{n:34,t:"Nível de Proteção significa, o conjunto de medidas a serem implementadas visando minimizar a possibilidade de ocorrência de um incidente de proteção. Dentre os níveis de proteção qual é o mais elevado?",
+ a:["Nível avançado","Nível C","Nível crítico","Nível 3"],r:3,
+ c:"Os níveis são <b>numéricos</b>: 1 (normal), 2 (ameaça aumentada) e 3 (incidente provável ou iminente). Qualquer alternativa com letra ou adjetivo já está errada por nomenclatura."},
+{n:35,t:"É a Comissão Estadual de Segurança Pública nos Portos Terminais e Vias Navegáveis (Polícia Federal, Capitania dos Portos, Receita Federal, Autoridade Portuária e Governo do Estado):",
+ a:["CESPORTOS","CONPORTOS","GRUMEC","APGE"],r:0,
+ c:"Truque da sigla: <b>CE</b>SPORTOS = Comissão <b>E</b>stadual; <b>CON</b>PORTOS = Comissão <b>N</b>acional. GRUMEC é o grupo de mergulhadores de combate da Marinha, sem relação com a questão."},
+{n:36,t:"Devo definir as fraturas como:",
+ a:["Interna ou externa","Aberta ou fechada","Arterial ou venosa","Primeiro ou segundo grau"],r:1,
+ c:"Fratura aberta (exposta) é aquela em que o osso rompe a pele — risco de infecção e hemorragia, prioridade maior. Arterial/venosa é hemorragia; primeiro e segundo grau é queimadura."},
+{n:37,t:"Que tipo de hemorragia se apresenta em jato?",
+ a:["Venosa","Arterial","Capilar","Bolhosa"],r:1,
+ c:"Artéria tem pressão, então o sangue sai <b>pulsando em jato</b>, vermelho vivo — é a mais grave e a que exige compressão imediata. Venosa escorre contínua e escura; capilar aflora na superfície. \"Bolhosa\" não existe."},
+{n:38,t:"No XABCDE (Protocolo Primário) a letra \"E\" tem o significado de:",
+ a:["Expor o corpo da vítima buscando lesões ocultas","Trocar a roupa da vítima","Tirar a roupa suja e por uma limpa","Expor o corpo da vítima, pois está calor"],r:0,
+ c:"E = Exposição, a última etapa: examinar o corpo inteiro atrás do que passou despercebido, e logo em seguida cobrir a vítima para <b>evitar hipotermia</b>. Não tem a ver com higiene nem com temperatura ambiente."},
+{n:39,t:"Após a crise epiléptica, devo colocar a vítima na posição:",
+ a:["Em pé de lado","Sentada","PLS – Posição Lateral de Segurança (PLS)","Chamar segurança"],r:2,
+ c:"Depois da convulsão a pessoa fica sonolenta e pode vomitar. De lado, a via aérea permanece livre e o vômito escorre para fora — evita broncoaspiração. Durante a crise, não segure a vítima nem coloque nada na boca."},
+{n:40,t:"Qual a frequência utilizada em uma RCP?",
+ a:["100 a 120 compressões por minuto","2 ventilações para 30 compressões","15 compressões para 2 ventilações","50 compressões para 10 ventilações"],r:0,
+ c:"<b>Frequência</b> é ritmo por minuto: 100 a 120. As alternativas B e C falam de <b>relação/ciclo</b> (o correto seria 30 compressões para 2 ventilações) — leia o enunciado antes de correr para o 30:2."}
+];
+
+const L = ["A","B","C","D"];
+let showAnswers = true;
+
+const qBox = document.getElementById("questions");
+qBox.innerHTML = Q.map(q => `
+  <article class="q${q.flag ? " flag" : ""}">
+    <div class="q-head"><span class="q-num">${String(q.n).padStart(2,"0")}</span><p class="q-text">${q.t}</p></div>
+    <ul class="alts">${q.a.map((alt,i)=>
+      `<li data-right="${i===q.r}"><span class="letter">${L[i]}</span><span>${alt}</span></li>`).join("")}</ul>
+    <div class="why"><strong>Por quê</strong>${q.c}</div>
+  </article>`).join("");
+
+document.getElementById("gabarito").innerHTML =
+  Q.map(q => `<div class="g"><i>${String(q.n).padStart(2,"0")}</i><b>${L[q.r]}</b></div>`).join("");
+
+function paint(){
+  document.querySelectorAll(".alts li").forEach(li=>{
+    li.classList.toggle("right", showAnswers && li.dataset.right === "true");
+  });
+  document.querySelectorAll(".why").forEach(w=>{ w.hidden = !showAnswers; });
+  btn.textContent = showAnswers ? "Ocultar respostas" : "Mostrar respostas";
+}
+const btn = document.getElementById("toggle-answers");
+btn.addEventListener("click", ()=>{ showAnswers = !showAnswers; paint(); });
+paint();
+
+const tabs = [...document.querySelectorAll(".tab")];
+tabs.forEach(tab => tab.addEventListener("click", ()=>{
+  tabs.forEach(t=>{
+    const on = t === tab;
+    t.setAttribute("aria-selected", on);
+    document.getElementById(t.getAttribute("aria-controls")).hidden = !on;
+  });
+  window.scrollTo({top:0});
+}));
+</script>
+</body>
+</html>
